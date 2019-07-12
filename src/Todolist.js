@@ -2,8 +2,8 @@ import React from 'react';
 import {InputItem,Button,WhiteSpace,List} from 'antd-mobile'
 import 'antd-mobile/dist/antd-mobile.css';
 import store from './store/index'
+import {inputValueChangeAction,addItemAction,deleteItemAction} from './store/actionCreators'
 const Item = List.Item;
-
 
 export default class Todolist extends React.Component{
     constructor(props) {
@@ -35,26 +35,14 @@ export default class Todolist extends React.Component{
         )
     }
     inputValueChange = (val) => {
-        const action = {
-            type:"value_change",
-            value:val
-        }
-        store.dispatch(action);
+        store.dispatch(inputValueChangeAction(val));
     }
     addItem = () => {
         if(this.state.inputValue) {
-            const action = {
-                type:'add_item',
-                value:this.state.inputValue
-            }
-            store.dispatch(action);
+            store.dispatch(addItemAction());
         }
     }
     deleteItem = (index) => {
-        const action = {
-            type:'delete_item',
-            index
-        }
-        store.dispatch(action);
+        store.dispatch(deleteItemAction(index));
     }
 }
