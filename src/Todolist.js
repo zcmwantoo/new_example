@@ -2,7 +2,7 @@ import React from 'react';
 import {InputItem,Button,WhiteSpace,List} from 'antd-mobile'
 import 'antd-mobile/dist/antd-mobile.css';
 import store from './store/index'
-import {inputValueChangeAction,addItemAction,deleteItemAction} from './store/actionCreators'
+import {inputValueChangeAction,addItemAction,deleteItemAction,getListByAxios} from './store/actionCreators'
 const Item = List.Item;
 
 export default class Todolist extends React.Component{
@@ -13,6 +13,11 @@ export default class Todolist extends React.Component{
     }
     storeChange =() =>{
         this.setState(store.getState());
+    }
+    componentDidMount() {
+        // redux-thunk处理异步请求
+        const action = getListByAxios();
+        store.dispatch(action);
     }
     render() {
         return (
